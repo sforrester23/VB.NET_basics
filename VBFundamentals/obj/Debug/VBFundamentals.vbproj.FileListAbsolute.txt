@@ -1,0 +1,10 @@
+C:\Users\sam_f\code\VB.NET\VBFundamentals\VBFundamentals\bin\Debug\VBFundamentals.exe.config
+C:\Users\sam_f\code\VB.NET\VBFundamentals\VBFundamentals\bin\Debug\VBFundamentals.exe
+C:\Users\sam_f\code\VB.NET\VBFundamentals\VBFundamentals\bin\Debug\VBFundamentals.pdb
+C:\Users\sam_f\code\VB.NET\VBFundamentals\VBFundamentals\bin\Debug\VBFundamentals.xml
+C:\Users\sam_f\code\VB.NET\VBFundamentals\VBFundamentals\obj\Debug\VBFundamentals.vbprojAssemblyReference.cache
+C:\Users\sam_f\code\VB.NET\VBFundamentals\VBFundamentals\obj\Debug\VBFundamentals.Resources.resources
+C:\Users\sam_f\code\VB.NET\VBFundamentals\VBFundamentals\obj\Debug\VBFundamentals.vbproj.GenerateResource.cache
+C:\Users\sam_f\code\VB.NET\VBFundamentals\VBFundamentals\obj\Debug\VBFundamentals.exe
+C:\Users\sam_f\code\VB.NET\VBFundamentals\VBFundamentals\obj\Debug\VBFundamentals.xml
+C:\Users\sam_f\code\VB.NET\VBFundamentals\VBFundamentals\obj\Debug\VBFundamentals.pdb
