@@ -8,7 +8,8 @@
         'NumericDataType()
         'DateAndTime()
         'ClassProduct()
-        ClassFunction()
+        'ClassFunction()
+        CalculateProfit()
     End Sub
     Sub Main0()
         Dim Name As String = "10 Speed Bike"
@@ -212,6 +213,22 @@
 
         'Print the sell date to the console
         Console.WriteLine(sellDate)
+        Console.ReadKey()
+    End Sub
+    Sub CalculateProfit()
+        'new product class intance
+        Dim prod As New Product
+
+        'Set the variables you need for this instance
+        prod.StandardCost = 250
+        prod.ListPrice = 500
+
+        'Two cases for setting the variable input or not - it is optional and behaves differently depending on it.
+        'Output without setting the newCost variable:
+        Console.WriteLine(prod.CalculateProfit())
+        'Output setting the newCost variable:
+        Console.WriteLine(prod.CalculateProfit(700))
+
         Console.ReadKey()
     End Sub
 End Module

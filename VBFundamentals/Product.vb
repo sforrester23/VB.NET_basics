@@ -60,15 +60,45 @@
     'End Sub
 
     'Replace the Above COMMENTED OUT method with a function:
-    Function CalculateSellEndDate(ByVal days As Integer) As DateTime 'function returns a value, so we need to define a datatype for that value
+    'Syntax:
+    'Function <Name>(<ByVal/ByRef> <variable_name> As <data_type>) As <data_type_of_output>
+    Function CalculateSellEndDate(ByVal days As Integer) As DateTime 'function returns a value, so we need to define a datatype for that value at the end
         SellEndDate = SellStartDate.AddDays(days) 'Calculate the value of SellEndDate, based on the inputted number of days
 
         Return SellEndDate 'return calculated value
 
         'Alternative way to return the desired value - set it to the Name of the function:
         'CalculateSellEndDate = SellEndDate
+    End Function
+    'Define an /OPTIONAL/ function:
+    'In the case of making whether you pass a parameter optional
+    'Syntax:
+    'Function <Name>(///<Optional(Y/N?)>/// <ByVal/ByRef> <variable_name> As <data_type> ///<= VAL?>///) As <data_type_of_output>
+    'The parts in /// are the new stuff we've built on to the previous syntaxt type. 
+    'The first bit is something you include if you want to make it an optional function
+    'The next bit is essentially the default value for the variable if the function is not passed
+    '\\\\\\\replace next function with two below it\\\\\\\\\\
+    'Function CalculateProfit(Optional ByVal newCost As Decimal = 0) As Decimal
+    '    'To make sure that default value is something that you'd never pass, we use the condition to run the code if the variable is not equal to that value
+    '    If newCost <> 0 Then
+    '        'StandardCost is a property defined further up ^, we assign it in this particular function
+    '        StandardCost = newCost
+    '    End If
 
+    '    'Profits
+    '    Return ListPrice - StandardCost
+
+    'End Function
+    Overloads Function CalculateProfit() As Decimal
+        Return CalculateProfit(StandardCost)
     End Function
 
+    Overloads Function CalculateProfit(ByVal newCost As Decimal) As Decimal
+        If newCost <> 0 Then
+            StandardCost = newCost
+        End If
+
+        Return ListPrice - StandardCost
+    End Function
 
 End Class
