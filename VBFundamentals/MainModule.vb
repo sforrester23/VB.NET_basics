@@ -6,7 +6,9 @@
         'Console.ReadKey()
         'BuiltInString()
         'NumericDataType()
-        DateAndTime()
+        'DateAndTime()
+        'ClassProduct()
+        ClassFunction()
     End Sub
     Sub Main0()
         Dim Name As String = "10 Speed Bike"
@@ -176,5 +178,40 @@
 
         Console.ReadKey()
 
+    End Sub
+    Sub ClassProduct()
+        'Create a new instance of this product class, take that object and save it to the variable "prod":
+        Dim prod As New Product
+        'Create the variable that needs to be passed through the method call of CalculateSellEndDate:
+        Dim sellDate As DateTime
+        'Set the SellStartDate property to a date:
+        prod.SellStartDate = #1/1/2019#
+        'Call the sub-procedure to set the SellEndDate, which is SellStartDate + 20.
+        'In this iteration, we also need to pass it an argument (ideally a variable), this does not have to be called "sellDate", I have just used this again for consistency and making it obvious. 
+        'This action is according to the ByRef keyword given when defining this method in the class file
+        'The next line is commented out to abide by new function designed for next module, which has fewer arguments. It would still be correct syntax if we were using the ByRef tactic 
+        'prod.CalculateSellEndDate(30, sellDate)
+
+        'Output the SellEndDate
+        Console.WriteLine(prod.SellEndDate)
+        'Write out the newly defined SellEndDate, defined by its own variable:
+        Console.WriteLine(sellDate)
+
+        Console.ReadKey()
+    End Sub
+    Sub ClassFunction()
+        'Set-up your class instances and/or variables
+        Dim prod As New Product
+        Dim sellDate As DateTime
+        'Set the value of SellStartDate for this instance of Products: "prod"
+        prod.SellStartDate = #5/1/2019#
+
+        'Calculate the SellEndDate using the built in function
+        'Doesn't print the sell date, despite the method including "return"
+        sellDate = prod.CalculateSellEndDate(25)
+
+        'Print the sell date to the console
+        Console.WriteLine(sellDate)
+        Console.ReadKey()
     End Sub
 End Module
