@@ -9,7 +9,10 @@
         'DateAndTime()
         'ClassProduct()
         'ClassFunction()
-        CalculateProfit()
+        'CalculateProfit()
+        'CalculateTheProfit()
+        'Inheritance()
+        Inheritance2()
     End Sub
     Sub Main0()
         Dim Name As String = "10 Speed Bike"
@@ -220,15 +223,58 @@
         Dim prod As New Product
 
         'Set the variables you need for this instance
-        prod.StandardCost = 250
-        prod.ListPrice = 500
+        'These two initialisations of code are no longer needed when you use constructors in the class file to set up defaults of variables
+        'But we can still have them in there to override the defaults
+        'prod.StandardCost = 250
+        'prod.ListPrice = 500
 
         'Two cases for setting the variable input or not - it is optional and behaves differently depending on it.
         'Output without setting the newCost variable:
         Console.WriteLine(prod.CalculateProfit())
         'Output setting the newCost variable:
-        Console.WriteLine(prod.CalculateProfit(700))
+        Console.WriteLine(prod.CalculateProfit(1100))
+        'What happens if we try to parse the argument as 0? It just returns the value of ListPrice, because it is taking away 0 (the StandardCost)
+        Console.WriteLine(prod.CalculateProfit(0))
+        Console.ReadKey()
+    End Sub
+    Sub CalculateTheProfit()
+        'We can call this new shared method on just the Product class name, it doesn't even need an instance of a class to be created!
+        'Dim prod As New Product
+        Console.WriteLine(Product.CalculateTheProfit(900, 1500)) '=600 always, regardless of what you've defined as properties for the class instance
+        'Console.WriteLine(prod.CalculateTheProfit(900, 1500)) would work if you initialised an instance, but it throws a warning in the console
+        Console.ReadKey()
+    End Sub
+    Sub Inheritance()
+        Dim prod As New Product
+        Console.WriteLine(Product.CalculateTheProfit(900, 1400))
+        Console.ReadKey()
+    End Sub
+    Sub Inheritance2()
+        'We can pre-initialise properties values when we initialise an instance of a class, using the WITH keyword
+        'IntelliSense is very clever as it can help by giving us a list of properties we haven't defined yet when we type a .
+        Dim prod As New Product With {
+            .ProductID = 700,
+            .Name = "10 Speed Bike",
+            .ProductNumber = "10-SP"
+        }
+        'Let's see our new method for getting class data in action
+        'We now call the ToString Method which calls it in CommonBase class, which is overriding a ToString function and hence collects and displays the data we require
+        Console.WriteLine(prod.ToString())
+
+        'We can do the same pre-initialisation with the customer class instance
+        Dim cust As New Customer With {
+            .CustomerID = 349,
+            .CompanyName = "Beach Computer Consulting",
+            .FirstName = "Bruce",
+            .LastName = "Jones"
+        }
+
+        'Same again, calling the ToString function because we cannot call the Protected function GetClassData from outside the inheritance chain
+        Console.WriteLine(cust.ToString())
 
         Console.ReadKey()
+    End Sub
+    Sub ProtectedFunctions()
+        'Protected methods can't be seen by an intance variable, they can only be used within inherited classes
     End Sub
 End Module

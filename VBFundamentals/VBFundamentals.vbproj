@@ -90,6 +90,8 @@
   <ItemGroup>
     <Compile Include="AutoImplementedProduct.vb" />
     <Compile Include="ClassConstants.vb" />
+    <Compile Include="CommonBase.vb" />
+    <Compile Include="Customer.vb" />
     <Compile Include="MainModule.vb" />
     <Compile Include="ModuleConstants.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

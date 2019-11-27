@@ -1,4 +1,14 @@
 ﻿Public Class Product
+    'Modify Product class to inherit from CommonBase
+    'It now has all the properties from CommonBase too!
+    Inherits CommonBase
+    Sub New()
+        'We can intialise default values for each of our properties at the start using this New() syntax
+        'Standard assignments only, we want to avoid errors so keep it simple
+        StandardCost = 500
+        ListPrice = 900
+        SellStartDate = DateTime.Now
+    End Sub
     ' type in property and hit tab twice to get a template laid out for you as follows
 
     'private property as follows:
@@ -37,6 +47,7 @@
     'End Property
 
     'Auto-implemented properties:
+    Public Property ProductID As Integer
     Public Property Name As String
     Public Property ProductNumber As String
     Public Property Colour As String
@@ -89,16 +100,52 @@
     '    Return ListPrice - StandardCost
 
     'End Function
+
+    'We can use overloading methods for a more object-orientated approach
+    'This function below calls the other version of the profit and passes the StandardCost property through it
+    'This essentially means we can call the function without parsing an argument, and know it will just use whatever the standard cost is defined as at the time
     Overloads Function CalculateProfit() As Decimal
         Return CalculateProfit(StandardCost)
     End Function
-
+    'this function below is called the same thing as the one above but it is considered different because it passes different variables through it
     Overloads Function CalculateProfit(ByVal newCost As Decimal) As Decimal
+        'All properties are intialised to a default value when the class instance is initialised
+        'The default value given at the initialisation of a class instance for a decimal is 0
+        'This next block checks that the newCost variable given in the argument is not zero, and if it is not, it assigns that new variable to the StandardCost
         If newCost <> 0 Then
             StandardCost = newCost
         End If
-
+        'return the value of the difference between ListPrice and StandardCost, as this is the profit
         Return ListPrice - StandardCost
+    End Function
+
+    'We can use shared functions to bypass the requirement of setting property values in a class
+    'They just take input and operate based on those inputs
+    Shared Function CalculateTheProfit(ByVal cost As Decimal, ByVal price As Decimal) As Decimal
+        Return price - cost
+    End Function
+
+
+
+    Protected Overrides Function GetClassData() As String 'this function works the same as one defined in Customer.vb, with different properties
+        Dim sb As New Text.StringBuilder(1024)
+
+        'take string builder and append each of the following lines, which contain information stored in this class
+        sb.AppendLine("Product ID: " + ProductID.ToString())
+        sb.AppendLine("Product Name: " + Name)
+        sb.AppendLine("Product Number: " + ProductNumber)
+        'The following are inherited from CommonBase Class
+        'They can be removed when using the overidable functions syntax, with the keyword OVERRIDES at the start of this function definition
+        'sb.AppendLine("Is Active: " + IsActive.ToString())
+        'sb.AppendLine("Modified Date: " + ModifiedDate.ToLongDateString())
+        'sb.AppendLine("Created By: " + CreatedBy)
+        'They are replaced by the following line, which accesses the function from the inherited class:
+        'It is allowed to access it, even if the method is protected using "Protected" keyword, because it is in the inheritance chain
+        sb.AppendLine(MyBase.GetClassData())
+        'We have managed to eliminate a few lines of code here and saved ourselves some repeating of ourselves. 
+        'We have managed to keep ourselves DRY...
+
+        Return sb.ToString()
     End Function
 
 End Class
