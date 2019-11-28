@@ -12,7 +12,8 @@
         'CalculateProfit()
         'CalculateTheProfit()
         'Inheritance()
-        Inheritance2()
+        'Inheritance2()
+        Arrays()
     End Sub
     Sub Main0()
         Dim Name As String = "10 Speed Bike"
@@ -276,5 +277,22 @@
     End Sub
     Sub ProtectedFunctions()
         'Protected methods can't be seen by an intance variable, they can only be used within inherited classes
+    End Sub
+    Sub Arrays()
+        'Dim products(3) As String
+        'products(0) = "10 Speed Bike"
+        'products(1) = "Bike Helmet"
+        'products(2) = "Inner Tube"
+
+        'Alternative way Of defining an array, in fewer lines:
+        Dim products As String() = {"10 Speed Bike", "Bike Helmet", "Inner Tube"}
+
+        Console.WriteLine(products(0))
+        Console.WriteLine(products(1))
+        Console.WriteLine(products(2))
+
+        Console.WriteLine(products.Count)
+
+        Console.ReadKey()
     End Sub
 End Module
