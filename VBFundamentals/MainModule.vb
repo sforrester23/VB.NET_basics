@@ -1,5 +1,51 @@
 ﻿Module MainModule
-    Dim Name As String = "10 Speed Bike"
+    'We define a dictionary, which is of Generic Type
+    'We define it to have some sort of data type with the keyword "Of"
+    'A dictionary has two things, it has a key value and a value itself that is reference by its corresponding key value
+    'We use an integer as they key, like a primary key in an SQL table. In theory, we could use whatever data type we want as a key value
+    'We use the Product object as the value object type, again it could be any data type 
+    Function LoadProducts() As Dictionary(Of Integer, Product)
+        'Dimensionalise a new dictionary called "products", with the same key and values as the function output data types
+        Dim products As New Dictionary(Of Integer, Product)
+        'Dimensionalise a new variable as a Product class type
+        Dim prod As Product
+
+        'now we assign a new product class instance to the variable "prod", with the data you require
+        prod = New Product() With {.ProductID = 1, .Name = "10 Speed Bike", .ProductNumber = "10-SP", .ListPrice = 1469.16D}
+        'assign this product type to the dictionary, with key value as the productID (because it is unique), and the value as the product class object assigned to prod
+        'the syntax for the assignment is a bit different as ":=", we use this to assign specific key values, but really it is not necessary as long as you add things in the correct order
+        products.Add(key:=prod.ProductID, value:=prod)
+
+        'We can repeat this process for two more product class instances defined below, assinging them to the dictionary
+        'We can use the same variable as each time we use it, we just assign it a new value and we don't have to worry about what it's replacing because the previous value has already been assigned to the dictionary
+        prod = New Product() With {.ProductID = 2, .Name = "Bike Helmet", .ProductNumber = "BIKE-HE", .ListPrice = 994.47D}
+        'Notice the difference here, we don't have to use the := syntax if we pass the parameters in the exact order that they are listed in the method
+        products.Add(prod.ProductID, prod)
+
+        prod = New Product() With {.ProductID = 3, .Name = "Inner Tube", .ProductNumber = "BIKE-IN-TU", .ListPrice = 756.81D}
+        products.Add(prod.ProductID, prod)
+
+        Return products
+
+    End Function
+    'Now we're returning a list
+    'This time there are no key values like there were with the dictionary function
+    'Once you "type" the Generic List using (Of __), that is the only data type that can go into that list
+    Function LoadProductsList() As List(Of Product)
+        Dim products As New List(Of Product) From {
+            New Product() With {.ProductID = 680, .Name = "HL Road Frame - Black, 58", .ProductNumber = "FR-R92B-58", .Colour = "Black", .Size = "58", .Weight = 1016.04D, .StandardCost = 1059.31D, .ListPrice = 1431.5D, .SellStartDate = #6/1/1998 12:00:00 AM#, .SellEndDate = #12/31/2021 12:00:00 AM#},
+            New Product() With {.ProductID = 706, .Name = "HL Road Frame - Red, 58", .ProductNumber = "FR-R92R-58", .Colour = "Red", .Size = "58", .Weight = 1016.04D, .StandardCost = 1059.31D, .ListPrice = 1431.5D, .SellStartDate = #6/1/1998 12:00:00 AM#, .SellEndDate = #12/31/2021 12:00:00 AM#},
+            New Product() With {.ProductID = 707, .Name = "Sport-100 Helmet, Red", .ProductNumber = "HL-U509-R", .Colour = "Red", .Size = "L", .Weight = 15.1D, .StandardCost = 13.0863D, .ListPrice = 34.99D, .SellStartDate = #7/1/2001 12:00:00 AM#, .SellEndDate = #12/31/2021 12:00:00 AM#},
+            New Product() With {.ProductID = 708, .Name = "Sport-100 Helmet, Black", .ProductNumber = "HL-U509", .Colour = "Black", .Size = "L", .Weight = 15.1D, .StandardCost = 13.0863D, .ListPrice = 34.99D, .SellStartDate = #7/1/2001 12:00:00 AM#, .SellEndDate = #12/31/2021 12:00:00 AM#},
+            New Product() With {.ProductID = 709, .Name = "Mountain Bike Socks, Black", .ProductNumber = "SO-B909-M", .Colour = "White", .Size = "M", .Weight = 10, .StandardCost = 3.3963D, .ListPrice = 9.5D, .SellStartDate = #7/1/2001 12:00:00 AM#, .SellEndDate = #6/30/2002 12:00:00 AM#},
+            New Product() With {.ProductID = 710, .Name = "Mountain Bike Socks, Red", .ProductNumber = "SO-B909-L", .Colour = "White", .Size = "L", .Weight = 10, .StandardCost = 3.3963D, .ListPrice = 9.5D, .SellStartDate = #7/1/2001 12:00:00 AM#, .SellEndDate = #6/30/2002 12:00:00 AM#},
+            New Product() With {.ProductID = 711, .Name = "Sport-100 Helmet, Blue", .ProductNumber = "HL-U509-B", .Colour = "Blue", .Size = "M", .Weight = 10, .StandardCost = 13.0863D, .ListPrice = 34.99D, .SellStartDate = #7/1/2001 12:00:00 AM#, .SellEndDate = #12/31/2021 12:00:00 AM#},
+            New Product() With {.ProductID = 712, .Name = "AWC Logo Cap", .ProductNumber = "CA-1098", .Colour = "Multi", .Size = "L", .Weight = 5.5D, .StandardCost = 6.9223D, .ListPrice = 8.99D, .SellStartDate = #7/1/2001 12:00:00 AM#, .SellEndDate = #12/31/2021 12:00:00 AM#},
+            New Product() With {.ProductID = 713, .Name = "Long-Sleeve Logo Jersey, S", .ProductNumber = "LJ-0192-S", .Colour = "Multi", .Size = "S", .Weight = 3.5D, .StandardCost = 38.4923D, .ListPrice = 49.99D, .SellStartDate = #7/1/2001 12:00:00 AM#, .SellEndDate = #12/31/2021 12:00:00 AM#},
+            New Product() With {.ProductID = 714, .Name = "Long-Sleeve Logo Jersey, M", .ProductNumber = "LJ-0192-M", .Colour = "Multi", .Size = "M", .Weight = 3.5D, .StandardCost = 38.4923D, .ListPrice = 49.99D, .SellStartDate = #7/1/2001 12:00:00 AM#, .SellEndDate = #12/31/2021 12:00:00 AM#}
+        }
+        Return products
+    End Function
     Sub Main()
         'Objects()
         'Main4()
@@ -13,7 +59,15 @@
         'CalculateTheProfit()
         'Inheritance()
         'Inheritance2()
-        Arrays()
+        'Arrays()
+        'ArrayList()
+        'ArrayList2()
+        'Dictionaries()
+        'DictionaryKeys()
+        'DictionaryMethods()
+        'LINQ()
+        'ListOfT()
+        ListOfTMethods()
     End Sub
     Sub Main0()
         Dim Name As String = "10 Speed Bike"
@@ -22,9 +76,9 @@
 
         Console.ReadKey()
     End Sub
-    Sub Main1()
-        Console.WriteLine(Name)
-    End Sub
+    'Sub Main1()
+    '    Console.WriteLine(Name)
+    'End Sub
 
     Sub Main2()
         If True Then
@@ -32,7 +86,8 @@
             Dim ListPrice As Decimal = 59.99D
         End If
 
-        Console.WriteLine(Name)
+        'the following still compiles properly if the value "Name" is defined outside of this Sub, in the Main module
+        'Console.WriteLine(Name)
         ' The following does not compile properly, because the if statement above is seen a different block of code.
         ' The variable is initialised inside the if statement and expires when the if statements ends
         ' Console.WriteLine(ListPrice)
@@ -276,9 +331,11 @@
         Console.ReadKey()
     End Sub
     Sub ProtectedFunctions()
-        'Protected methods can't be seen by an intance variable, they can only be used within inherited classes
+        'Protected methods can't be seen by an instance variable, they can only be used within inherited classes
     End Sub
     Sub Arrays()
+        'Defining an array of a single type
+
         'Dim products(3) As String
         'products(0) = "10 Speed Bike"
         'products(1) = "Bike Helmet"
@@ -294,5 +351,169 @@
         Console.WriteLine(products.Count)
 
         Console.ReadKey()
+    End Sub
+    Sub ArrayList()
+        Dim products As New ArrayList From {
+            "10 Speed Bike",
+            "Bike Helmet",
+            "Inner Tube",
+            1,
+            3.35D,
+            New Product With {.ProductID = 1}
+        }
+        Dim product As New Product
+
+        Console.WriteLine(products(0))
+        Console.WriteLine(products(1))
+        Console.WriteLine(products(2))
+        Console.WriteLine(products(3))
+        Console.WriteLine(products(4))
+        Console.WriteLine(products(5))
+
+        Console.WriteLine(products.Count)
+
+        Console.ReadKey()
+    End Sub
+    Sub ArrayList2()
+        'Define an array list with multiple class instances contained in it
+        Dim products As New ArrayList From {
+            New Product() With {.ProductID = 1, .Name = "10 Speed Bike", .ProductNumber = "10-SP"},
+            New Product() With {.ProductID = 1, .Name = "Bike Helmet", .ProductNumber = "BIKE-HE"},
+            New Product() With {.ProductID = 1, .Name = "Inner Tube", .ProductNumber = "BIKE-IN-TU"}
+        }
+
+        'The only way to access the property values of the class instances is to cast them, then we can show these properties on the console
+        Console.WriteLine(DirectCast(products(0), Product).Name)
+        Console.WriteLine(DirectCast(products(1), Product).ProductID)
+        Console.WriteLine(DirectCast(products(2), Product).ProductNumber)
+
+        Console.ReadKey()
+    End Sub
+
+    Sub Dictionaries()
+        Dim products = LoadProducts()
+
+        'We pass in the key for that key-value pair (as opposed to the index values for an array) to access the corresponding value
+        'The good thing about these dictionaries is that, unlike with arrays, we don't have to do a DirectCast to access the class properties and write them to the line
+        'Because the dictionary is defines as having values as the product class object type, it expects the outputs to be the class object type - whereas the arrays we didn't have this
+        Console.WriteLine(products(1).Name)
+        Console.WriteLine(products(2).ProductID)
+        Console.WriteLine(products(3).ProductNumber)
+
+        Console.ReadKey()
+    End Sub
+    Sub DictionaryKeys()
+        'Dim the dictionary using the function
+        Dim products = LoadProducts()
+
+        'TRUE/FALSE for whether the dictionary contains certain keys
+        Console.WriteLine(products.ContainsKey(1)) 'True - it does contain the key 1
+        Console.WriteLine(products.ContainsKey(99)) 'False - it doesn't contian the key 99
+
+        Console.ReadKey()
+    End Sub
+    Sub DictionaryMethods()
+        'dim the dictionary using the function
+        Dim products = LoadProducts()
+        'Display the total number of items in the dictionary
+        Console.WriteLine(products.Count)
+        'Remove an item by referring to it with a key
+        products.Remove(1)
+        Console.WriteLine(products.Count)
+        'Remove all items from the dictionary
+        products.Clear()
+        Console.WriteLine(products.Count)
+
+        Console.ReadKey()
+    End Sub
+    Sub LINQ()
+        Dim products = LoadProducts()
+
+        'Display sum of all list prices
+        'These LINQ expressions iterate over the collection and pass each item in the collection to the function in the LINQ method
+        Console.WriteLine(
+            products.Sum(Function(p)
+                             Return p.Value.ListPrice 'Access the value of the dictionary with p.Value, then again access the list price with .ListPrice, pass that value to the loop
+                         End Function).ToString("c")) 'return the ocurrence with "c"
+
+        'Display the average of all list prices
+        'We can short hand the function part so we don't have to put the return or end the function  
+        Console.WriteLine(
+            products.Average(Function(p) p.Value.ListPrice).ToString("c"))
+
+        'Display the minimum of all list prices
+        Console.WriteLine(
+            products.Min(Function(p) p.Value.ListPrice).ToString("c"))
+
+        'Display the maximum of all list price
+        Console.WriteLine(
+            products.Max(Function(p) p.Value.ListPrice).ToString("c"))
+
+        Console.ReadKey()
+    End Sub
+    Sub ListOfT()
+        'Dim the list of products
+        Dim products = LoadProductsList()
+        'print the information
+        Console.WriteLine(products(0).Name)
+        Console.WriteLine(products(1).ProductID)
+        Console.WriteLine(products(2).ListPrice)
+        Console.WriteLine(products(3).ProductNumber)
+        Console.WriteLine(products(4).SellEndDate)
+        Console.WriteLine(products(5).SellStartDate)
+        Console.WriteLine(products(6).Size)
+        Console.WriteLine(products(7).StandardCost)
+        Console.WriteLine(products(8).Colour)
+        Console.WriteLine(products(9).Weight)
+
+        'See if a specific key exists in the list; True/False
+        Console.WriteLine(
+            products.Exists(Function(p) p.ProductID = 706)) 'True
+        Console.WriteLine(
+            products.Exists(Function(p) p.ProductID = 99)) 'False
+        Console.WriteLine(
+            products.Exists(Function(p) p.Colour = "Black")) 'True (it is case sensitive)
+
+        Console.ReadKey()
+    End Sub
+    Sub ListOfTMethods()
+        Dim products = LoadProductsList()
+
+        'Display the total number of items in the list
+        Console.WriteLine(products.Count)
+
+        'Remove an item by index
+        products.RemoveAt(0)
+        products.RemoveAt(1)
+        Console.WriteLine(products.Count)
+
+        'Remove an item by a product object, using the LINQ expression looping through passing p to the function to find the item based on a criteria
+        products.Remove(products.Find(Function(p) p.ProductID = 708))
+        Console.WriteLine(products.Count)
+
+        'Remove all items
+        products.Clear()
+        Console.WriteLine(products.Count)
+
+        Console.ReadKey()
+    End Sub
+    Sub LINQOnListOfT()
+        Dim products = LoadProductsList()
+
+        'display the sum of all list prices
+        Console.WriteLine(
+            products.Sum(Function(p) p.ListPrice).ToString("c"))
+
+        'display the average list price
+        Console.WriteLine(
+            products.Average(Function(p) p.ListPrice).ToString("c"))
+
+        'display the minimum of the list prices
+        Console.WriteLine(
+            products.Min(Function(p) p.ListPrice).ToString("c"))
+
+        'display the maximum of the list prices
+        Console.WriteLine(
+            products.Max(Function(p) p.ListPrice).ToString("c"))
     End Sub
 End Module
