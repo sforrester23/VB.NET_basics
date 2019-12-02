@@ -67,7 +67,15 @@
         'DictionaryMethods()
         'LINQ()
         'ListOfT()
-        ListOfTMethods()
+        'ListOfTMethods()
+        'DoWhileLoop()
+        'DoUntilLoop()
+        'ForNext()
+        'ForStepNext()
+        'ForEachNext()
+        'IfElseElseIfStatements()
+        'SelectCase()
+        CompilerConstants()
     End Sub
     Sub Main0()
         Dim Name As String = "10 Speed Bike"
@@ -516,4 +524,262 @@
         Console.WriteLine(
             products.Max(Function(p) p.ListPrice).ToString("c"))
     End Sub
+
+    Sub DoWhileLoop()
+        'gives us the generic list of product objects:
+        Dim products = LoadProductsList()
+        'two variables to keep track of the point in the list we're looping through:
+        Dim index As Integer = 0
+        'one to keep track of the sum of the 
+        Dim sum As Decimal = 0
+
+        'Start our loop
+        'While index is less than the amount of the products minus 1...
+        Do While index < (products.Count - 1)
+            '... do the following
+            'output each product in question for this given index number
+            'Overriding function kicks in here
+            Console.WriteLine(products(index).ToString())
+            'add the list price for the given product we are on to the sum variable
+            'by the end of the loop this will be the total sum of all the list prices of all the products
+            sum += products(index).ListPrice
+
+            'jump to the next index in the list, then go to the start of the while loop again. 
+            'If theThen condition Is still True, re-run the block Of code For the Next index value
+            'Repeat until end of the list
+            index += 1
+
+            'go back up to the start of the while loop:
+        Loop
+
+        'once the loop is done, we can output the final sum output amount to the console
+        Console.WriteLine("Sum: " & sum.ToString("c"))
+
+        Console.ReadKey()
+    End Sub
+
+    Sub DoLoopWhile()
+        'set up variables as before
+        Dim products = LoadProductsList()
+        Dim index As Integer = 0
+        Dim sum As Decimal = 0
+
+        'Now we can define a loop that we know we want to enter at least once, because the conditional statement is checked AT THE END
+        Do
+            'same code as before ^^^
+            Console.WriteLine(products(index).ToString())
+            sum += products(index).ListPrice
+
+            'If you want to exit the code early, use:
+            'Exit Do
+            'this is perhaps best used with an if statement
+
+            index += 1
+
+            'If the condition is still true after a cycle, do it again
+            'Perhaps the logic is easier to follow in terms of length of lists in this case. 
+            '"Have we done all the items in the list by now? Yes? Ok, end the loop. No? Ok, go again":
+        Loop While index < (products.Count)
+
+        Console.WriteLine("Sum: " & sum.ToString("c"))
+
+        Console.ReadKey()
+    End Sub
+
+    Sub DoUntilLoop()
+        'Set up our variables
+        Dim products = LoadProductsList()
+        Dim index As Integer = 0
+        'this time we're going to define a min variable, which starts as the maximum possible decimal value allowed in VB (we hope something will be smaller than that)
+        Dim min As Decimal = Decimal.MaxValue
+
+        'Do everything in the following code block, until the condition following becomes true
+        'Do everything following, until the index becomes greater than the amount of products less one
+        Do Until index > (products.Count - 1)
+            'Write out the product elements
+            Console.WriteLine(products(index).ToString())
+
+            'Set the minimum value to a decimal type, depending on a condition
+            min = Convert.ToDecimal(
+                IIf(products(index).ListPrice < min, products(index).ListPrice, min))
+            'If the list price of the product for the current index is less than the current minimum value: 
+            'set the minimum to that product list value (it becomes the new minimum), 
+            'If Not, leave it as minimum
+
+            'syntax is as followes: IIf(condition(true/false?), return this if true, return this if false)
+
+            'Go to next index
+            index += 1
+        Loop
+
+        'Output the minimum value, that is decided since all products list prices have been cycled through and the lowest value will remain as the min variable
+        Console.WriteLine("Min: " & min.ToString())
+
+        Console.ReadKey()
+    End Sub
+
+    Sub DoLoopUntil()
+        'Set up the variables in the same way as previously ^^^
+        Dim products = LoadProductsList()
+        Dim index As Integer = 0
+        Dim max As Decimal = Decimal.MinValue
+
+        'Start the loop, bear in mind with this syntax, it will always do one loop first, before checking a given condition
+        Do
+            'output the products
+            Console.WriteLine(products(index).ToString())
+
+            'check to see if the current index of product list price is bigger than the current maximum variable saved
+            'if it is, replace the variable with this new larger amount
+            'If it is not, keep the same variable value max as it is known to be the biggest so far
+            max = Convert.ToDecimal(
+                IIf(products(index).ListPrice > max, products(index).ListPrice, max))
+
+            index += 1
+
+            'checking whether or not to continue to the next loop, only stop if the following condition is true:
+        Loop Until index > (products.Count - 1)
+    End Sub
+
+    Sub ForNext()
+        Dim products = LoadProductsList()
+
+        'Give a range of values over which to iterate a process
+        'List index values start at zero and end at one less than their length 
+        For index As Integer = 0 To (products.Count - 1)
+            'do the following for each of the placeholder value "index"
+            'index is a range of values and the products list can be referenced for each of these range of values
+            Console.WriteLine(products(index).ToString())
+
+            'incremement to the next value in the loop
+        Next
+
+        Console.ReadKey()
+
+    End Sub
+
+    Sub ForStepNext()
+        Dim products = LoadProductsList()
+
+        'We can use the Step keyword to alter this syntax to tell the increment to loop in a certain length each time. 
+        'By default, the step to iterate is 1, meaning it just jumps to the next item if it's not specified
+        'Here we have specified the list of indexes to iterate over to be from the largest number to the smallest number, and made sure to Step as -1
+        'In essence, we print the list of products backwards because of the set-up line
+        For index As Integer = (products.Count - 1) To 0 Step -1
+            Console.WriteLine(products(index).ToString())
+        Next
+
+        Console.ReadKey()
+    End Sub
+
+    Sub ForEachNext()
+        'Set up list of products
+        Dim products = LoadProductsList()
+
+        'We can be a bit more vague about the length with this syntax, as in we don't need to know which index values the list runs from and to, or the increment for this
+        'Instead, we can just tell the system to only do the following block of code on the items specified in this line
+        'based of this, it takes care of the indexing for us, once it's works out how many of the specified items are in the list
+        For Each prod As Product In products
+            Console.WriteLine(prod.ToString())
+
+            'We can exit the for loop at any time using
+            'Exit For
+        Next
+
+        Console.ReadKey()
+    End Sub
+
+    Sub IfElseElseIfStatements()
+        Dim products = LoadProductsList()
+
+        'An example of an If, ElseIf and Else structure for operating based on conditional operations (true/false)
+        For index As Integer = 0 To (products.Count - 1)
+            If products(index).Colour = "Red" Then
+                Console.WriteLine("Red colour product: " & products(index).ToString())
+            ElseIf products(index).Colour = "Black" Then
+                Console.WriteLine("Black colour product: " & products(index).ToString())
+            Else
+                Console.WriteLine("Other colour product: " & products(index).ToString())
+            End If
+        Next
+
+        Console.ReadKey()
+    End Sub
+
+    Sub SelectCase()
+        Dim products = LoadProductsList()
+
+        'iterate through the list
+        For index As Integer = 0 To (products.Count - 1)
+            'case syntax that registers for a given value of each product (cycled through in the For loop), operate the following code.
+            'this is more comprehensive than the If statement set up as it can eliminate monotony
+
+            'For the case of each product's size:
+            Select Case products(index).Size
+                'for the case where the size is equal to 58...
+                Case "58"
+                    '...print the following about that product
+                    Console.WriteLine("Size 58: " & products(index).Name)
+
+                'for the case where the size is equal to L...
+                Case "L"
+                    '...print the following about that product
+                    Console.WriteLine("Size L: " & products(index).Name)
+
+                'for the case where the size is equal to M...
+                Case "M"
+                    '...print the following about that product
+                    Console.WriteLine("Size M: " & products(index).Name)
+
+                    'Anything that does not match any of the cases in the above code, will fall into the else statement:
+                Case Else
+                    Console.WriteLine(products(index).Name & " has size " & products(index).Size)
+            End Select
+        Next
+
+        Console.ReadKey()
+    End Sub
+
+    Sub CompilerConstants()
+        'The following is decision making structure that happens at compile time, not run time:
+        'A compiler construct not a run time construct
+        'DEBUG is a compile construct
+#If DEBUG Then
+        Console.WriteLine("In DEBUG mode")
+#Else
+    Console.WriteLine("In RELEASE mode")
+#End If
+
+        'We can define our own compiler constants that are defined on compiling
+        '#Const conLANGUAGE = "ENGLISH"
+#Const conLANGUAGE = "GERMAN"
+
+#If conLANGUAGE = "ENGLISH" Then
+        Console.WriteLine("Good Morning Mr. Jones")
+#Else
+        Console.WriteLine("Guten Morgen Herr Jones")
+#End If
+
+        Console.ReadKey()
+    End Sub
+
+    ' We can add a "#Region" syntax with a matching "#End Region" syntax to make it easier to collapse areas and focus better on the work we're doing
+#Region "Sub - With End With"
+    Sub WithEndWith()
+        Dim prod As New Product
+        'We can eliminate a little bit of typing with this With keyword
+        With prod
+            .ProductID = 1
+            .Name = "A new product"
+            .ProductNumber = "A101"
+            .StandardCost = 50
+            .ListPrice = 100
+        End With
+
+        Console.WriteLine(prod.ToString())
+
+        Console.ReadKey()
+    End Sub
+#End Region
+
 End Module
